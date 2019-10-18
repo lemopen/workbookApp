@@ -3,7 +3,7 @@ public class Display {
 	//入力を文字列化して受け取る
 	public static String input() {
 		Scanner scan = new Scanner(System.in);
-		String str = scan.nextLine().toString();
+		String str = scan.nextLine();
 		scan.close();
 		return str;
 	}
