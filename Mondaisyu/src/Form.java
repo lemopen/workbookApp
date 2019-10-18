@@ -1,14 +1,21 @@
 import java.util.ArrayList;
 
 public class Form {
-	ArrayList<String> str = new ArrayList();
-
-	public ArrayList<String> getStr() {
-		return str;
+	private static String input = "";
+	private static ArrayList<String> lines = new ArrayList<String>();
+	public static String getInput() {
+		return input;
 	}
-
-	public void setStr(ArrayList<String> str) {
-		this.str = str;
+	public static void setInput(String input) {
+		Form.input = input;
 	}
-
+//	public static void eraseInput() {
+//		Form.input = "";
+//	}
+	public static ArrayList<String> getLines() {
+		return lines;
+	}
+	public static void setLines(ArrayList<String> lines) {
+		Form.lines = lines;
+	}
 }
