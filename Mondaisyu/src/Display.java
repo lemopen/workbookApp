@@ -4,7 +4,6 @@ public class Display {
 	public static String input() {
 		Scanner scan = new Scanner(System.in);
 		String str = scan.nextLine();
-		scan.close();
 		return str;
 	}
 	//引数に入れたものを出力する

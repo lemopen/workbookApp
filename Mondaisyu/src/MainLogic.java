@@ -14,20 +14,12 @@ public class MainLogic {
 			Function =  Sentence.initImport;
 			break;
 		case "4":
-			Function =  Sentence.initData;
+			Function =  Sentence.initDataControl;
 			break;
 		case "5":
-			Function =  Sentence.initConfig;
+			Function =  Sentence.initWeightConfig;
 			break;
 		}
 		return Function;
 	}
-	//格納されている問題数まで「第〇問」という表示を切り替えて出力するメソッド
-	public static String whatQuestion() {
-		for(int num : Questions) {
-			System.out.println("第" + num + "問");
-			//問題文を入れる
-		}
-	}
-
 }

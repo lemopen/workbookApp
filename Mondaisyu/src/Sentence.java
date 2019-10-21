@@ -6,9 +6,9 @@ public class Sentence{
 	public static String initAll = "どの機能を利用しますか？\n\t1.問題表示・回答機能\n\t2.検索機能\n\t3.問題の取込み\n\t4.正答率表示・リセット\n\t5.重みづけ管理";
 	public static String initQuestions = "問題を始めます";
 	public static String initSearch = "検索機能";
-	public static String initImport = "問題の取り込みを行います";
-	public static String initData = "正答率表示・リセット";
-	public static String initConfig = "重みづけ管理";
+	public static String initImport = "インポートしたファイルを基に問題を作成します。\nファイルパスとファイル名を入力してください\n\t例） ..\\Sample.txt\nもしくは C:\\Users\\SampleFolder\\Sample.txt";
+	public static String initDataControl = "正答率表示・リセット";
+	public static String initWeightConfig = "重みづけ管理";
 
 	//問題開始
 	private static int questionNum = 0;
@@ -27,7 +27,9 @@ public class Sentence{
 	public static String andSearch = "";
 	public static String orSearch = "";
 	//問題取り込み
-//	public static String = "問題を作成します。テキストファイルのパスを入力してください";
+	public static String importFileName = "ファイル名を拡張子付きで入力してください";
+	public static String whichWords = "行単位でテキストの抽出を行います。対象となる単語をカンマ区切りで入力してください。\n例）メートル,規定,第,条";
+	public static String continueImport = "さらに他のテキストファイルをインポートして問題に追加しますか？\nインポートする：y インポートしない：n　を入力してEnter";
 
 	//正答率
 
