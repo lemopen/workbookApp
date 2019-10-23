@@ -14,11 +14,12 @@ public class Main {
 				Form.setInput(Display.input());
 			}
 		}
+
 		//		Display.display(Form.getInput());//出力確認用
 
-		//区切り線を表示
+		//区切り線
 		divider();
-		//選択された機能の画面を表示
+		//選択された機能を開始
 		ServiceInterface function = getFunctionInstance(input);
 		function.startFunction();
 	}
@@ -35,7 +36,6 @@ public class Main {
 	//			System.out.println();
 	//		}
 	//	}
-
 	//改行メソッド
 	public static void divider() {
 		System.out.println("----------------------------------------------------------------");
