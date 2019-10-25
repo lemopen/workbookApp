@@ -12,15 +12,14 @@ public class QuizDao {
 		// 2.ファイルが存在しない場合
 		if (!file.exists()) {
 			return null;
-
 		}
-		// 3.FileReaderクラスとreadメソッドを使って1文字ずつ読み込み表示する
+		// 1-2.1文字ずつ読み込んで返却
 		FileReader fr = new FileReader(pathName);
 		BufferedReader br = new BufferedReader(fr);
 		ArrayList<String> strArray = new ArrayList<>();
 		String str = "";
 		while ((str = br.readLine()) != null) {
-			strArray.add(str + "\n");//ArrayList<String>も用意
+			strArray.add(str + "\n");
 		}
 		fr.close();
 		return strArray;

@@ -1,157 +1,113 @@
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.PatternSyntaxException;
 
-public class Quiz implements ServiceInterface {
-	private String pathName = "";
-	private ArrayList<String> textArray = new ArrayList<>();
-	private String splitWord = "";
-	private ArrayList<String> questionsMade = new ArrayList<>();
-
+public class Quiz {
 	/**
 	 * 問題取得メソッド
-	 * */
-	public ArrayList<String> getQuestionList(String filePath) throws FileNotFoundException {
+	 **/
+	public ArrayList<String> getQuestionList(String filePath){
 		// 問題を一覧を取得して返却
-		return FileUser.textToArrayList(filePath);
-	}
-
-	public ArrayList<String> getQuestionsMade() {
-		return questionsMade;
-	}
-
-	public void setQuestionsMade(ArrayList<String> questionsMade) {
-		this.questionsMade = questionsMade;
-	}
-
-	public void startFunction() {
-		//パス入力
-		System.out.println(Sentence.initImport);
-		pathName = Display.input();
-
 		try {
-			//パスを基にテキストを読み込み行ごとArrayListへ
-
-
-			textArray = addString(textArray);
-			Sentence.divider;
-			//切り出しを行う単語の指定
-			System.out.println(Sentence.whichWord);
-			splitWord = FileUser.checkInput(Display.input());
-
-			//問題を作成する
-			ArrayList<String> exercise = makeQuestions(splitWord, textArray);
-
-			//必要なら文章を出力して確認
-			System.out.println(Sentence.checkQuestions);
-			String choice = FileUser.checkInput(Display.input());
-			while (true) {
-				if (choice.equals("y")) {
-					for (String sentence : exercise) {
-						System.out.print(sentence);
-					}
-					break;
-				} else if (choice.equals("n")) {
-					break;
-				} else {
-					choice = FileUser.checkInput(Display.input());
-				}
-			}
-		} catch (PatternSyntaxException e) {
+			return QuizDao.textToArrayList(filePath);
+		} catch (IOException e) {
+			// TODO 自動生成された catch ブロック
 			e.printStackTrace();
-			System.out.println(Sentence.genException);
-			System.out.println("PatternSyntaxExceptionです");
-			Main.divider();
-			Main.main(null);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			System.out.println(Sentence.genException);
-			System.out.println("FileNotFoundExceptionです");
-			Main.divider();
-			Main.main(null);
+			return null;
 		}
 	}
 
-	public ArrayList<String> addString(ArrayList<String> input) {
+	/**
+	 * 受け取ったファイル名の拡張子を除去して返すメソッド
+	 * */
+	public String removeExtension(String filePath) {
+		String str;
+		int last = filePath.lastIndexOf(".");
+		str = filePath.substring(0,last);
+		return str;
+	}
+	public String getExtension(String filePath) {
+		String str;
+		int last = filePath.lastIndexOf(".");
+		str = filePath.substring(last);
+		return str;
+	}
+
+	/**
+	 * 問題の空白を除去し、文言を付与して成形するメソッド
+	 * @param list
+	 * @return
+	 */
+	public ArrayList<String> addStringAndTrim(List<String> list) {
 		ArrayList<String> strArray = new ArrayList<>();
 		String str = "";
 		int count = 0;
-		for (int i = 0; i < input.size(); i++) {
-			str = textArray.get(i).trim().replace("　", "");
+		for (int i = 0; i < list.size(); i++) {
+			str = list.get(i).trim().replace("　", "").replace("\n", "");
 			switch (i % 7) {
 			case 0:
-				str = "問" + (count + 1) + "　" + str + "\n";
+				str = "問" + (count + 1) + "　" + str;
 				count++;
 				break;
 			case 1:
-				str = "\t1:" + str + "\n";
+				str = "\t1:" + str;
 				break;
 			case 2:
-				str = "\t2:" + str + "\n";
+				str = "\t2:" + str;
 				break;
 			case 3:
-				str = "\t3:" + str + "\n";
+				str = "\t3:" + str;
 				break;
 			case 4:
-				str = "\t4:" + str + "\n";
+				str = "\t4:" + str;
 				break;
-			case 5:
-				str += "\n";
-				break;
-			default:
-				str = "\n";
-			}
-			if (str.matches("")) {
-				System.out.println();
 			}
 			strArray.add(str);
 		}
 		return strArray;
 	}
 
-	//文章をを正規表現に従って切り分けるメソッド
-	public ArrayList<String> makeQuestions(String searchString, ArrayList<String> textForQuestions) {
-		String sentence = "";
-		for (int i = 0; i < textForQuestions.size();) {
-			String str = textForQuestions.get(i);
+	/**
+	 * 文章を正規表現に従って切り分けるメソッド
+	 * @param searchString
+	 * @param textForQuestions
+	 * @return
+	 */
+	public ArrayList<String> makeQuestions(String input, List<String> list) {
+		ArrayList<String> questions = new ArrayList<>();
+		for (int i = 0; i < list.size();) {
+			String sentence = "";
+			String str = list.get(i);
+
 			//指定した正規表現で始まる文章を見つけたら質問文に書き加える
 			//違うなら次の行の該当をチェックする
-			if (str.matches(searchString)) {
-				sentence += str;
+			if (str.matches(input)) {
+				sentence += str + "\n";
 				i++;
-				str = textForQuestions.get(i);
+				str = list.get(i);
 			}
-			if (i == textForQuestions.size() - 1) {
+			if (i == list.size() - 1) {
 				break;
 			}
 			//指定した正規表現にぶつかるまでに読み込んだ文章を書き加える
 			//ぶつかったらここまで作成したquestionをquestionsMadeにadd
 			while (true) {
-				if (!str.matches(searchString)) {
-					sentence += str;
+				if (!str.matches(input) && str != "") {
+					sentence += str + "\n";
 					i++;
-					str = textForQuestions.get(i);
-				} else {
-					questionsMade.add(sentence);
+					str = list.get(i);
+				}else{
+					questions.add(sentence);
 					break;
 				}
-				if (i == textArray.size() - 1) {
+				if (i == list.size() - 1) {
 					break;
 				}
 			}
-			if (i == textArray.size() - 1) {
+			if (i == list.size() - 1) {
 				break;
 			}
 		}
-		this.setQuestionsMade(questionsMade);
-		return questionsMade;
-	}
-
-	@Override
-	public void endFunction() {
-		// TODO 自動生成されたメソッド・スタブ
-
+		return questions;
 	}
 }
