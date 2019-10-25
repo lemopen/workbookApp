@@ -4,26 +4,22 @@ public class Sentence{
 	//文章を集めるクラス
 
 	ArrayList<String> questions = new ArrayList<String>();
-	//開始時の文言
+	//一般的な文言
 	public static String initAll = "どの機能を利用しますか？\n\t1.問題表示・回答機能\n\t2.検索機能\n\t3.問題の取込み\n\t4.正答率表示・リセット\n\t5.重みづけ管理";
 	public static String initQuestions = "問題を始めます";
 	public static String initSearch = "検索機能";
 	public static String initImport = "インポートしたファイルを基に問題を作成します。\nファイルパスとファイル名を入力してください\n\t例）C:\\Users\\SampleFolder\\Sample.txt";
 	public static String initDataControl = "正答率表示・リセット";
 	public static String initWeightConfig = "重みづけ管理";
+	public static String isOkay = "この内容で良いですか？\n続ける：y　やり直す:n";
+	public static String confirmEndAll = "引き続き他の機能を利用しますか？\n続ける：y　終了する:n";
+	public static String invalidInput = "入力は無効です。再入力してください";
 
 	//例外処理
 	public static String genException = ("例外処理が発生しました。プログラムを再起動します");
 
 	//問題開始
-	private static int questionNum = 0;
-	public int getQuestionNum() {
-		return questionNum;
-	}
-	public void setQuestionNum(int questionNum) {
-		Sentence.questionNum = questionNum;
-	}
-	public static String question = String.format("第%d問", questionNum);
+	public static String endQuestions = "全ての問題に回答しました。";
 
 	//検索機能
 	public static String searchHow = "検索方法を選んでください。\n1.問題番号で検索\t2.問題に含まれる単語で検索";
@@ -43,4 +39,5 @@ public class Sentence{
 	//正答率
 
 	//重みづけ管理
+	public static String divider = "----------------------------------------------------------------";
 }

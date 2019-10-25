@@ -26,7 +26,19 @@ public class FileUser {
 				break;
 			}
 			Main.divider();
-			System.out.println("入力は無効です。再度入力してください");
+			System.out.println(Sentence.invalidInput);
+			input = Display.input();
+		}
+		return input;
+	}
+	public static String checkInput(String input, String sentence) {
+		while(true) {
+			if(!input.equals("")) {
+				break;
+			}
+			Main.divider();
+			System.out.println(Sentence.invalidInput);
+			System.out.println(sentence);
 			input = Display.input();
 		}
 		return input;
@@ -50,7 +62,7 @@ public class FileUser {
 
 			// 2.ファイルが存在しない場合
 			if (!file.exists()) {
-				System.out.print("ファイルが存在しません。パスを再入力してください\n");
+				System.out.print("ファイルが存在しません。再入力してください\n");
 				Main.divider();
 				System.out.println(Sentence.initImport);//再入力させ再度読み込み
 				pathName = Display.input();
